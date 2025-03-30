@@ -1,7 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
-export default function ServerBlock({ name, ip, port }: { name: string; ip: string; port: number }) {
+interface ServerBlockProps {
+	name: string;
+	ip: string;
+	port: number;
+	onpress?: () => void;
+}
+
+export default function ServerBlock({ name, ip, port, onpress }: ServerBlockProps) {
 	const [isReachable, setReachable] = useState(false);
 	const [status, setStatus] = useState(null);
 
@@ -30,12 +37,12 @@ export default function ServerBlock({ name, ip, port }: { name: string; ip: stri
 		fetchContinuously();
 
 		return () => {
-			isMounted = false; // Cleanup to stop fetching when the component unmounts
+			isMounted = false;
 		};
 	}, [ip, port]);
 
 	return (
-		<View style={styles.container}>
+		<TouchableOpacity style={styles.container} onPress={onpress}>
 			<Text style={styles.name}>{name}</Text>
 			<Text style={styles.details}>IP: {ip}</Text>
 			<Text style={styles.details}>Port: {port}</Text>
@@ -45,7 +52,7 @@ export default function ServerBlock({ name, ip, port }: { name: string; ip: stri
 			) : (
 				<Text style={styles.details}>No status.</Text>
 			)}
-		</View>
+		</TouchableOpacity>
 	);
 }
 

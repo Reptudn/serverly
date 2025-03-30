@@ -1,5 +1,5 @@
 all:
-	go build
+	go run $(shell find . -name '*.go')
 
-run:
-	go run main.go
+build:
+	go build
