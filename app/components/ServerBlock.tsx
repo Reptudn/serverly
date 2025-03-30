@@ -6,17 +6,32 @@ export default function ServerBlock({ name, ip, port }: { name: string; ip: stri
 	const [status, setStatus] = useState(null);
 
 	useEffect(() => {
+		let isMounted = true; // To prevent state updates on unmounted components
+
 		const fetchStatus = async () => {
 			const data = await getServerStatus(ip, port);
-			if (data) {
-				setReachable(true);
-				setStatus(data);
-			} else {
-				setReachable(false);
+			if (isMounted) {
+				if (data) {
+					setReachable(true);
+					setStatus(data);
+				} else {
+					setReachable(false);
+				}
 			}
 		};
 
-		fetchStatus();
+		const fetchContinuously = async () => {
+			while (isMounted) {
+				await fetchStatus(); // Wait for the current fetch to complete
+				await new Promise((resolve) => setTimeout(resolve, 30000)); // Wait 5 seconds before the next fetch
+			}
+		};
+
+		fetchContinuously();
+
+		return () => {
+			isMounted = false; // Cleanup to stop fetching when the component unmounts
+		};
 	}, [ip, port]);
 
 	return (
