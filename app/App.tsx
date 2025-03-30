@@ -24,6 +24,7 @@ export default function App() {
 
 	const deleteServer = (id: string) => {
 		setServers((prevServers) => prevServers.filter(server => server.id !== id));
+		Alert.alert("Deleted server with id:", id);
 	};
 
 	const editServer = (id: string) => {
