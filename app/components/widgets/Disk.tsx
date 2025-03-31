@@ -5,7 +5,7 @@ interface DiskProps {
 	disk: Disk;
 }
 
-export default function DiskUsage({ disk }: DiskProps) {
+export default function DiskUsageWidget({ disk }: DiskProps) {
 
 	const bytesToHumanReadable = (bytes: number): string => {
 		const units = ['B', 'KB', 'MB', 'GB', 'TB', 'PB'];

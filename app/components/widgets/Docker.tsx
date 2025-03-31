@@ -16,7 +16,7 @@ function DockerContainerItem({ container }: { container: DockerContainer }) {
     
 }
 
-export default function DockerContainerList({ dockerContainers }: DockerContainerListProps) {
+export default function DockerContainerListWidget({ dockerContainers }: DockerContainerListProps) {
 
 	// const [containers, setContainers] = useState<DockerContainer[]>(dockerContainers);
 	

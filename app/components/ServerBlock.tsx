@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Text, StyleSheet, TouchableOpacity } from 'react-native';
-import CpuPercentage from './info/CPU';
-import { MemoryUsageSmall } from './info/Memory';
+import { CpuPercentageWidgetSmall } from './widgets/CPU';
+import { MemoryUsageSmall } from './widgets/Memory';
 
 interface ServerBlockProps {
 	name: string;
@@ -47,7 +47,7 @@ export default function ServerBlock({ name, ip, port, onpress }: ServerBlockProp
 			<Text style={styles.details}>Reachable: {isReachable ? 'Yes' : 'No'}</Text>
 			{data ? (
 				<>
-					<CpuPercentage percentage={data.cpu_usage}/>
+					<CpuPercentageWidgetSmall percentage={data.cpu_usage}/>
 					<MemoryUsageSmall memory={data.memory}/>
 					<Text style={styles.details}>Raw data: {JSON.stringify(data)}</Text>
 				</>
@@ -94,7 +94,7 @@ const getServerStatus = async (ip: string, port: number) => {
 
 		return await response.json() as ServerResponseSmall;
 	} catch (error) {
-		console.error('Failed to fetch server status:', error);
+		// console.error('Failed to fetch server status:', error);
 		return null;
 	}
 };

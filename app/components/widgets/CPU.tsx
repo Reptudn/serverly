@@ -5,7 +5,15 @@ interface CpuPercentageProps {
     percentage: number;
 }
 
-export default function CpuPercentage({ percentage }: CpuPercentageProps) {
+export function CpuPercentageWidget({ percentage }: CpuPercentageProps) {
+    return (
+        <>
+            <Text>CPU Usage: {percentage.toPrecision(4)}%</Text>
+        </>
+    );
+}
+
+export function CpuPercentageWidgetSmall({ percentage }: CpuPercentageProps) {
     return (
         <>
             <Text>CPU Usage: {percentage.toPrecision(4)}%</Text>

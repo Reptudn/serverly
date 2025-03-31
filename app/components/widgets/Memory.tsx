@@ -6,7 +6,7 @@ interface MemoryProps {
 }
 
 
-export default function MemoryUsage({ memory }: MemoryProps) {
+export default function MemoryUsageWidget({ memory }: MemoryProps) {
 
     const bytesToHumanReadable = (bytes: number): string => {
 		const units = ['B', 'KB', 'MB', 'GB', 'TB', 'PB'];

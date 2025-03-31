@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import DockerContainerList from '../components/info/Docker';
-import CpuPercentage from '../components/info/CPU';
-import Disk from '../components/info/Disk';
-import MemoryUsage from '../components/info/Memory';
+import { CpuPercentageWidget } from '../components/widgets/CPU';
+import MemoryUsageWidget from '../components/widgets/Memory';
+import DiskUsageWidget from '../components/widgets/Disk';
+import NetworkWidget from '../components/widgets/Network';
+import DockerContainerListWidget from '../components/widgets/Docker';
 
 interface ServerDetailsScreenProps {
     route: {
         params: {
-            server: Server | any;
+            server: Server;
         }
     }
 }
@@ -55,10 +56,11 @@ export default function ServerDetailsScreen({ route }: any) {
             {data !== null ? (
                 <>
                     <Text>Running Processes amount: {data.process_count}</Text>
-                    <CpuPercentage percentage={data.cpu_usage}/>
-                    <Disk disk={data.disk} />
-                    <MemoryUsage memory={data.memory}/>
-                    <DockerContainerList dockerContainers={data.docker as DockerContainer[]}/>
+                    <CpuPercentageWidget percentage={data.cpu_usage}/>
+                    <DiskUsageWidget disk={data.disk} />
+                    <NetworkWidget networks={data.network}/>
+                    <MemoryUsageWidget memory={data.memory}/>
+                    <DockerContainerListWidget dockerContainers={data.docker as DockerContainer[]}/>
                     <ScrollView>
                         <Text>Raw Data:</Text>
                         <Text>{JSON.stringify(data, null, 2)}</Text>
@@ -114,7 +116,7 @@ const getServerStatus = async (ip: string, port: number) => {
 
 		return await response.json() as ServerResponseBig;
 	} catch (error) {
-		console.error('Failed to fetch server status:', error);
+		// console.error('Failed to fetch server status:', error);
 		return null;
 	}
 };
