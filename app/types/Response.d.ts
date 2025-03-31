@@ -30,14 +30,14 @@ interface Disk {
 
 interface ServerResponseSmall {
     cpu_usage: number,
-    memory: Memory[]
+    memory: Memory
 }
 
 interface ServerResponseBig {
     cpu_usage: number,
-    memory: Memory[]
+    memory: Memory
     disk: Disk,
-    docker?: DockerContainer[],
+    docker: DockerContainer[],
     network: Network[]
     process_count: number
 }

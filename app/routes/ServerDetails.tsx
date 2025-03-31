@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import DockerContainerList from '../components/info/Docker';
+import CpuPercentage from '../components/info/CPU';
+import Disk from '../components/info/Disk';
+import MemoryUsage from '../components/info/Memory';
 
 interface ServerDetailsScreenProps {
     route: {
@@ -12,7 +16,7 @@ interface ServerDetailsScreenProps {
 export default function ServerDetailsScreen({ route }: any) {
     const { server } = route.params;
 
-    const [data, setData] = useState({});
+    const [data, setData] = useState<ServerResponseBig | null>(null);
     const [isReachable, setReachable] = useState(false);
 
     useEffect(() => {
@@ -24,7 +28,7 @@ export default function ServerDetailsScreen({ route }: any) {
             if (!isMounted) return;
 
             setReachable(data ? true : false);
-            data && setData(data);
+            data ? setData(data) : setData(null);
         }
 
         const fetchContinuously = async () => {
@@ -48,10 +52,23 @@ export default function ServerDetailsScreen({ route }: any) {
             <Text>IP: {server.ip}</Text>
             <Text>Port: {server.port}</Text>
             <Text>Reachable: {isReachable ? 'Yes' : 'No'}</Text>
-            <ScrollView>
-                <Text>Data:</Text>
-                <Text>{data ? JSON.stringify(data, null, 2) : "No Data"}</Text>
-            </ScrollView>
+            {data !== null ? (
+                <>
+                    <Text>Running Processes amount: {data.process_count}</Text>
+                    <CpuPercentage percentage={data.cpu_usage}/>
+                    <Disk disk={data.disk} />
+                    <MemoryUsage memory={data.memory}/>
+                    <DockerContainerList dockerContainers={data.docker as DockerContainer[]}/>
+                    <ScrollView>
+                        <Text>Raw Data:</Text>
+                        <Text>{JSON.stringify(data, null, 2)}</Text>
+                    </ScrollView>
+                </>
+            ) : (
+                <>
+                    <Text>No Data</Text>
+                </>
+            )}
         </View>
     );
 };

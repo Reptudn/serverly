@@ -5,8 +5,6 @@ package main
 import (
 	"net/http"
 
-	// "github.com/docker/docker/api/types"
-	// "github.com/docker/docker/client"
 	"github.com/gin-gonic/gin"
 	"github.com/shirou/gopsutil/v3/cpu"
 	"github.com/shirou/gopsutil/v3/mem"
@@ -56,12 +54,13 @@ func getStatusFull() (map[string]interface{}, error) {
 	}
 
 	// Get Docker containers
-	/*
-		dockerContainers, err := getDockerContainers()
-		if err != nil {
-			return nil, err
-		}
-	*/
+	dockerContainers, err := getDockerContainers()
+	if err != nil {
+		return nil, err
+	}
+	if dockerContainers == nil {
+		dockerContainers = []map[string]interface{}{}
+	}
 
 	// Get network stats
 	networkStats, err := getNetworkStats()
@@ -84,8 +83,8 @@ func getStatusFull() (map[string]interface{}, error) {
 			"used":      virtualMemory.Used,
 			"used_pct":  virtualMemory.UsedPercent,
 		},
-		"disk": diskUsage,
-		// "docker":        dockerContainers,
+		"disk":          diskUsage,
+		"docker":        dockerContainers,
 		"network":       networkStats,
 		"process_count": processCount,
 	}, nil

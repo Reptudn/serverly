@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Text, StyleSheet, TouchableOpacity } from 'react-native';
+import CpuPercentage from './info/CPU';
+import { MemoryUsageSmall } from './info/Memory';
 
 interface ServerBlockProps {
 	name: string;
@@ -10,7 +12,7 @@ interface ServerBlockProps {
 
 export default function ServerBlock({ name, ip, port, onpress }: ServerBlockProps) {
 	const [isReachable, setReachable] = useState(false);
-	const [status, setStatus] = useState({});
+	const [data, setData] = useState<ServerResponseSmall | null>(null);
 
 	useEffect(() => {
 		let isMounted = true; // To prevent state updates on unmounted components
@@ -20,7 +22,7 @@ export default function ServerBlock({ name, ip, port, onpress }: ServerBlockProp
 			if (!isMounted) return;
 	
 			setReachable(data ? true : false);
-			data && setStatus(data!);
+			data && setData(data!);
 		};
 
 		const fetchContinuously = async () => {
@@ -43,10 +45,14 @@ export default function ServerBlock({ name, ip, port, onpress }: ServerBlockProp
 			<Text style={styles.details}>IP: {ip}</Text>
 			<Text style={styles.details}>Port: {port}</Text>
 			<Text style={styles.details}>Reachable: {isReachable ? 'Yes' : 'No'}</Text>
-			{status ? (
-				<Text style={styles.details}>Status: {JSON.stringify(status)}</Text>
+			{data ? (
+				<>
+					<CpuPercentage percentage={data.cpu_usage}/>
+					<MemoryUsageSmall memory={data.memory}/>
+					<Text style={styles.details}>Raw data: {JSON.stringify(data)}</Text>
+				</>
 			) : (
-				<Text style={styles.details}>No status.</Text>
+				<Text style={styles.details}>No data.</Text>
 			)}
 		</TouchableOpacity>
 	);

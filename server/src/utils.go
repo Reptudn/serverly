@@ -5,6 +5,10 @@ import (
 	// "github.com/docker/docker/api/types"
 	// "github.com/docker/docker/client"
 
+	"context"
+
+	"github.com/docker/docker/api/types/container"
+	"github.com/docker/docker/client"
 	"github.com/shirou/gopsutil/v3/disk"
 	"github.com/shirou/gopsutil/v3/net"
 	"github.com/shirou/gopsutil/v3/process"
@@ -25,14 +29,13 @@ func getDiskUsage() (map[string]interface{}, error) {
 	}, nil
 }
 
-/*
 func getDockerContainers() ([]map[string]interface{}, error) {
 	cli, err := client.NewClientWithOpts(client.FromEnv, client.WithAPIVersionNegotiation())
 	if err != nil {
 		return nil, err
 	}
 
-	containers, err := cli.ContainerList(context.Background(), types.ContainerListOptions{
+	containers, err := cli.ContainerList(context.Background(), container.ListOptions{
 		All: true,
 	})
 	if err != nil {
@@ -51,7 +54,6 @@ func getDockerContainers() ([]map[string]interface{}, error) {
 
 	return containerList, nil
 }
-*/
 
 func getNetworkStats() ([]map[string]interface{}, error) {
 	ioStats, err := net.IOCounters(true)
