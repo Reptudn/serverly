@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { Text, StyleSheet, TouchableOpacity } from 'react-native';
 
 interface ServerBlockProps {
 	name: string;
@@ -10,21 +10,17 @@ interface ServerBlockProps {
 
 export default function ServerBlock({ name, ip, port, onpress }: ServerBlockProps) {
 	const [isReachable, setReachable] = useState(false);
-	const [status, setStatus] = useState(null);
+	const [status, setStatus] = useState({});
 
 	useEffect(() => {
 		let isMounted = true; // To prevent state updates on unmounted components
 
 		const fetchStatus = async () => {
-			const data = await getServerStatus(ip, port);
-			if (isMounted) {
-				if (data) {
-					setReachable(true);
-					setStatus(data);
-				} else {
-					setReachable(false);
-				}
-			}
+			const data: ServerResponseSmall | null = await getServerStatus(ip, port);
+			if (!isMounted) return;
+	
+			setReachable(data ? true : false);
+			data && setStatus(data!);
 		};
 
 		const fetchContinuously = async () => {
@@ -90,7 +86,7 @@ const getServerStatus = async (ip: string, port: number) => {
 			throw new Error(`Error: ${response.status}`);
 		}
 
-		return await response.json();
+		return await response.json() as ServerResponseSmall;
 	} catch (error) {
 		console.error('Failed to fetch server status:', error);
 		return null;

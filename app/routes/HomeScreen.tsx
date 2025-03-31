@@ -5,13 +5,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import ServerBlock from '../components/ServerBlock';
 import AddServerButton from '../components/AddServerButton';
 
-interface Server {
-	id: string;
-	name: string;
-	ip: string;
-	port: number;
-}
-
 export default function HomeScreen({ navigation }: any) {
 	const [servers, setServers] = useState<Server[]>([]);
 
@@ -90,7 +83,7 @@ export default function HomeScreen({ navigation }: any) {
 									name={item.name}
 									ip={item.ip}
 									port={item.port}
-									onpress={() => navigation.navigate('Server Details', { server: item })}
+									onpress={() => navigation.navigate('Server Details', { server: item as Server })}
 								/>
 							</Swipeable>
 						)}
