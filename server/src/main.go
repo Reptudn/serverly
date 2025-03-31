@@ -113,5 +113,15 @@ func main() {
 		c.JSON(http.StatusOK, stats)
 	})
 
+	router.GET("/processes", func(c *gin.Context) {
+		processes, err := getProcesses()
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+			return
+		}
+
+		c.JSON(http.StatusOK, processes)
+	})
+
 	router.Run("0.0.0.0:8080")
 }

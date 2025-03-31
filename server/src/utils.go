@@ -83,3 +83,32 @@ func getProcessCount() (int, error) {
 
 	return len(processes), nil
 }
+
+func getProcesses() ([]map[string]interface{}, error) {
+	processes, err := process.Processes()
+	if err != nil {
+		return nil, err
+	}
+
+	var processList []map[string]interface{}
+	for _, proc := range processes {
+		// Fetch process details
+		name, _ := proc.Name()             // Get the process name
+		pid := proc.Pid                    // Get the process ID
+		cpuPercent, _ := proc.CPUPercent() // Get CPU usage percentage
+		memInfo, _ := proc.MemoryInfo()    // Get memory usage info
+
+		processList = append(processList, map[string]interface{}{
+			"pid":         pid,
+			"name":        name,
+			"cpu_percent": cpuPercent,
+			"memory": map[string]interface{}{
+				"rss": memInfo.RSS, // Resident Set Size (memory in bytes)
+				"vms": memInfo.VMS, // Virtual Memory Size (memory in bytes)
+			},
+			"total": len(processList),
+		})
+	}
+
+	return processList, nil
+}
