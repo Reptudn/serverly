@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import WidgetStyles from '../../styles/Widgets';
 
 interface MemoryProps {
 	memory: Memory;
@@ -8,7 +9,7 @@ interface MemoryProps {
 
 export default function MemoryUsageWidget({ memory }: MemoryProps) {
 
-    const bytesToHumanReadable = (bytes: number): string => {
+	const bytesToHumanReadable = (bytes: number): string => {
 		const units = ['B', 'KB', 'MB', 'GB', 'TB', 'PB'];
 		let unitIndex = 0;
 
@@ -20,19 +21,19 @@ export default function MemoryUsageWidget({ memory }: MemoryProps) {
 		return `${bytes.toFixed(2)} ${units[unitIndex]}`;
 	};
 
-    return (
-        <>
-            <Text>Memory:</Text>
-            <Text>{bytesToHumanReadable(memory.used)}/{bytesToHumanReadable(memory.total)} - {memory.used_pct.toPrecision(4)}%</Text>
-        </>
-    );
+	return (
+		<View style={WidgetStyles.container}>
+			<Text>Memory:</Text>
+			<Text>{bytesToHumanReadable(memory.used)}/{bytesToHumanReadable(memory.total)} - {memory.used_pct.toPrecision(4)}%</Text>
+		</View>
+	);
 }
 
 export function MemoryUsageSmall({ memory }: MemoryProps) {
 
-    return (
-        <>
-            <Text>Memory: {memory.used_pct.toPrecision(4)}%</Text>
-        </>
-    );
+	return (
+		<View>
+			<Text>Memory: {memory.used_pct.toPrecision(4)}%</Text>
+		</View>
+	);
 }

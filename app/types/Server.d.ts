@@ -1,6 +1,6 @@
 interface Server {
-    id: string;
-    name: string;
-    ip: string;
-    port: number;
+	id: string;
+	name: string;
+	ip: string;
+	port: number;
 }

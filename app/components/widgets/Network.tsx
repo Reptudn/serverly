@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { FlatList, ScrollView, StyleSheet, Text, View } from 'react-native';
+import WidgetStyles from '../../styles/Widgets';
 
 interface NetworkPorps {
 	networks: Network[];
@@ -36,8 +37,8 @@ function NetworkItem({ network }: NetworkItemProps) {
 
 export default function NetworkWidget({ networks }: NetworkPorps) {
 	return (
-		<>
-			<Text>Networks:</Text>
+		<View style={WidgetStyles.container}>
+			<Text style={WidgetStyles.title}>Networks:</Text>
 			<FlatList 
 				data={networks}
 				keyExtractor={(network) => network.interface}
@@ -45,6 +46,6 @@ export default function NetworkWidget({ networks }: NetworkPorps) {
 					<NetworkItem network={item} />
 				)}
 			/>
-		</>
+		</View>
 	);
 }

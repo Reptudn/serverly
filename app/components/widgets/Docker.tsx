@@ -1,28 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, Text, View, FlatList } from 'react-native';
+import WidgetStyles from '../../styles/Widgets';
 
 interface DockerContainerListProps {
-    dockerContainers: DockerContainer[];
+	dockerContainers: DockerContainer[];
 }
 
 
 function DockerContainerItem({ container }: { container: DockerContainer }) {
 
-    return (
-        <View>
+	return (
+		<View>
 			<Text>Image: {container.image}</Text>
 		</View>
-    );
-    
+	);
+	
 }
 
 export default function DockerContainerListWidget({ dockerContainers }: DockerContainerListProps) {
 
 	// const [containers, setContainers] = useState<DockerContainer[]>(dockerContainers);
 	
-    return (
-        <View>
-            <Text>Running Docker Containers:</Text>
+	return (
+		<View style={WidgetStyles.container}>
+			<Text>Running Docker Containers:</Text>
 			{
 				dockerContainers.length > 0 ? (
 					<FlatList
@@ -33,10 +34,10 @@ export default function DockerContainerListWidget({ dockerContainers }: DockerCo
 						)}
 					/>
 				) : (
-					<Text>        No running Docker containers</Text>
+					<Text>No running Docker containers</Text>
 				)
 			}
-        </View>
-    );
+		</View>
+	);
 
 }

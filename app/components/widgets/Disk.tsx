@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import WidgetStyles from '../../styles/Widgets';
 
 interface DiskProps {
 	disk: Disk;
@@ -20,7 +21,7 @@ export default function DiskUsageWidget({ disk }: DiskProps) {
 	};
 
 	return (
-		<View>
+		<View style={WidgetStyles.container}>
 			<Text>File System: {disk.filesystem}</Text>
 			<Text>Load: {bytesToHumanReadable(disk.used)}/{bytesToHumanReadable(disk.total)} - {disk.used_pct.toPrecision(4)}% used</Text>
 			<Text>Free: {bytesToHumanReadable(disk.free)}</Text>

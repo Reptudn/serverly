@@ -1,22 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import WidgetStyles from '../../styles/Widgets';
 
 interface CpuPercentageProps {
-    percentage: number;
+	percentage: number;
 }
 
 export function CpuPercentageWidget({ percentage }: CpuPercentageProps) {
-    return (
-        <>
-            <Text>CPU Usage: {percentage.toPrecision(4)}%</Text>
-        </>
-    );
+	return (
+		<View style={WidgetStyles.container}>
+			<Text>CPU Usage: {percentage.toPrecision(4)}%</Text>
+		</View>
+	);
 }
 
 export function CpuPercentageWidgetSmall({ percentage }: CpuPercentageProps) {
-    return (
-        <>
-            <Text>CPU Usage: {percentage.toPrecision(4)}%</Text>
-        </>
-    );
+	return (
+		<View>
+			<Text>CPU Usage: {percentage.toPrecision(4)}%</Text>
+		</View>
+	);
 }
