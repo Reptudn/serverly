@@ -25,12 +25,12 @@ function NetworkItem({ network }: NetworkItemProps) {
 	};
 
 	return (
-		<View>
-			<Text>Interface: {network.interface}</Text>
-			<Text>Bytes sent: {bytesToHumanReadable(network.bytes_sent)}</Text>
-			<Text>Bytes received: {bytesToHumanReadable(network.bytes_recv)}</Text>
-			<Text>Packets sent: {network.packets_sent}</Text>
-			<Text>Packets received: {network.packets_recv}</Text>
+		<View style={WidgetStyles.container}>
+			<Text style={WidgetStyles.text}>Interface: {network.interface}</Text>
+			<Text style={WidgetStyles.text}>Bytes sent: {bytesToHumanReadable(network.bytes_sent)}</Text>
+			<Text style={WidgetStyles.text}>Bytes received: {bytesToHumanReadable(network.bytes_recv)}</Text>
+			<Text style={WidgetStyles.text}>Packets sent: {network.packets_sent}</Text>
+			<Text style={WidgetStyles.text}>Packets received: {network.packets_recv}</Text>
 		</View>
 	);
 }
@@ -45,6 +45,8 @@ export default function NetworkWidget({ networks }: NetworkPorps) {
 				renderItem={({ item }) => (
 					<NetworkItem network={item} />
 				)}
+				ItemSeparatorComponent={() => <View style={WidgetStyles.separator} />}
+				horizontal={true}
 			/>
 		</View>
 	);

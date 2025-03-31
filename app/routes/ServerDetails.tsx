@@ -6,6 +6,7 @@ import DiskUsageWidget from '../components/widgets/Disk';
 import NetworkWidget from '../components/widgets/Network';
 import DockerContainerListWidget from '../components/widgets/Docker';
 import WidgetStyles from '../styles/Widgets';
+import ProcessWidget from '../components/widgets/Process';
 
 interface ServerDetailsScreenProps {
 	route: {
@@ -15,7 +16,7 @@ interface ServerDetailsScreenProps {
 	}
 }
 
-export default function ServerDetailsScreen({ route }: any) {
+export default function ServerDetailsScreen({ route }: ServerDetailsScreenProps) {
 	const { server } = route.params;
 
 	const [data, setData] = useState<ServerResponseBig | null>(null);
@@ -50,26 +51,25 @@ export default function ServerDetailsScreen({ route }: any) {
 	return (
 		<ScrollView style={styles.container}>
 			<Text style={styles.title}>{server.name} - Details</Text>
-			<Text>Name: {server.name}</Text>
 			<Text>IP: {server.ip}</Text>
 			<Text>Port: {server.port}</Text>
 			<Text>Reachable: {isReachable ? '✅ Yes' : '❌ No'}</Text>
 			{data !== null ? (
 				<>
-					<Text>Running Processes amount: {data.process_count}</Text>
+					<ProcessWidget processAmount={data.process_count}/>
 					<CpuPercentageWidget percentage={data.cpu_usage}/>
 					<DiskUsageWidget disk={data.disk} />
-					<NetworkWidget networks={data.network}/>
+					<NetworkWidget networks={data.network}/>	
 					<MemoryUsageWidget memory={data.memory}/>
 					<DockerContainerListWidget dockerContainers={data.docker as DockerContainer[]}/>
 					<View style={WidgetStyles.container}>
-						<Text>Raw Data:</Text>
-						<Text>{JSON.stringify(data, null, 2)}</Text>
+						<Text style={WidgetStyles.title}>Raw Data</Text>
+						<Text style={WidgetStyles.text}>{JSON.stringify(data, null, 2)}</Text>
 					</View>
 				</>
 			) : (
 				<>
-					<Text>No Data</Text>
+					<Text style={WidgetStyles.text}>No Data</Text>
 				</>
 			)}
 		</ScrollView>
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		backgroundColor: '#fff',
-		padding: 20,
+		padding: 15,
 	},
 	title: {
 		fontSize: 24,
@@ -90,8 +90,8 @@ const styles = StyleSheet.create({
 	actionContainer: {
 		justifyContent: 'center',
 		alignItems: 'center',
-		width: 100,
-		height: '100%',
+		width: '100%',
+		height: 'auto',
 	},
 	actionText: {
 		color: '#fff',

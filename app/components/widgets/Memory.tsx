@@ -23,8 +23,8 @@ export default function MemoryUsageWidget({ memory }: MemoryProps) {
 
 	return (
 		<View style={WidgetStyles.container}>
-			<Text>Memory:</Text>
-			<Text>{bytesToHumanReadable(memory.used)}/{bytesToHumanReadable(memory.total)} - {memory.used_pct.toPrecision(4)}%</Text>
+			<Text style={WidgetStyles.title}>RAM / Memory</Text>
+			<Text style={WidgetStyles.text}>{bytesToHumanReadable(memory.used)}/{bytesToHumanReadable(memory.total)} - {memory.used_pct.toPrecision(4)}%</Text>
 		</View>
 	);
 }
@@ -33,7 +33,7 @@ export function MemoryUsageSmall({ memory }: MemoryProps) {
 
 	return (
 		<View>
-			<Text>Memory: {memory.used_pct.toPrecision(4)}%</Text>
+			<Text style={WidgetStyles.text}>Memory: {memory.used_pct.toPrecision(4)}%</Text>
 		</View>
 	);
 }

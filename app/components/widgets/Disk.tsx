@@ -22,9 +22,10 @@ export default function DiskUsageWidget({ disk }: DiskProps) {
 
 	return (
 		<View style={WidgetStyles.container}>
-			<Text>File System: {disk.filesystem}</Text>
-			<Text>Load: {bytesToHumanReadable(disk.used)}/{bytesToHumanReadable(disk.total)} - {disk.used_pct.toPrecision(4)}% used</Text>
-			<Text>Free: {bytesToHumanReadable(disk.free)}</Text>
+			<Text style={WidgetStyles.title}>Disk</Text>
+			<Text style={WidgetStyles.text}>File System: {disk.filesystem}</Text>
+			<Text style={WidgetStyles.text}>Load: {bytesToHumanReadable(disk.used)}/{bytesToHumanReadable(disk.total)} - {disk.used_pct.toPrecision(4)}% used</Text>
+			<Text style={WidgetStyles.text}>Free: {bytesToHumanReadable(disk.free)}</Text>
 		</View>
 	);
 }

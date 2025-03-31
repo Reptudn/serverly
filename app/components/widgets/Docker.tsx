@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollView, StyleSheet, Text, View, FlatList } from 'react-native';
+import { ScrollView, StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native';
 import WidgetStyles from '../../styles/Widgets';
 
 interface DockerContainerListProps {
@@ -10,9 +10,9 @@ interface DockerContainerListProps {
 function DockerContainerItem({ container }: { container: DockerContainer }) {
 
 	return (
-		<View>
-			<Text>Image: {container.image}</Text>
-		</View>
+		<TouchableOpacity style={WidgetStyles.container}>
+			<Text style={WidgetStyles.text}>Image: {container.image}</Text>
+		</TouchableOpacity>
 	);
 	
 }
@@ -23,18 +23,22 @@ export default function DockerContainerListWidget({ dockerContainers }: DockerCo
 	
 	return (
 		<View style={WidgetStyles.container}>
-			<Text>Running Docker Containers:</Text>
+			<Text style={WidgetStyles.title}>Docker</Text>
 			{
 				dockerContainers.length > 0 ? (
 					<FlatList
 						data={dockerContainers}
+						horizontal={true}
 						keyExtractor={(item) => item.id}
 						renderItem={({ item }) => (
-							<DockerContainerItem container={item} />
+							<DockerContainerItem 
+								container={item}
+							/>
 						)}
+						ItemSeparatorComponent={() => <View style={WidgetStyles.separator} />}
 					/>
 				) : (
-					<Text>No running Docker containers</Text>
+					<Text style={WidgetStyles.text}>No running Docker containers</Text>
 				)
 			}
 		</View>
