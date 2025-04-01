@@ -28,6 +28,20 @@ interface Disk {
 	filesystem: string
 }
 
+interface Process {
+	pid: number; // Process ID
+	name: string; // Process name
+	cpu_percent: number; // CPU usage percentage
+	memory: {
+		rss: number; // Resident Set Size (memory in bytes)
+		vms: number; // Virtual Memory Size (memory in bytes)
+	};
+}
+
+interface ServerProcessResponse {
+	processes: Process[]
+}
+
 interface ServerResponseSmall {
 	cpu_usage: number,
 	memory: Memory

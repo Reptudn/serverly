@@ -106,7 +106,6 @@ func getProcesses() ([]map[string]interface{}, error) {
 				"rss": memInfo.RSS, // Resident Set Size (memory in bytes)
 				"vms": memInfo.VMS, // Virtual Memory Size (memory in bytes)
 			},
-			"total": len(processList),
 		})
 	}
 

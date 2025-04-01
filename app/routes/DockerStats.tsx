@@ -11,13 +11,13 @@ import ProcessWidget from '../components/widgets/Process';
 interface DockerStatsScreenProps {
 	route: {
 		params: {
-			container: DockerContainer;
+			server: Server;
 		}
 	}
 }
 
 export default function DockerStatsScreen({ route }: DockerStatsScreenProps) {
-	const { container } = route.params;
+	const { server } = route.params;
 
 	return (
         <View>

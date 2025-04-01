@@ -7,6 +7,7 @@ import NetworkWidget from '../components/widgets/Network';
 import DockerContainerListWidget from '../components/widgets/Docker';
 import WidgetStyles from '../styles/Widgets';
 import ProcessWidget from '../components/widgets/Process';
+import { useNavigation } from '@react-navigation/native';
 
 interface ServerDetailsScreenProps {
 	route: {
@@ -56,7 +57,7 @@ export default function ServerDetailsScreen({ route }: ServerDetailsScreenProps)
 			<Text>Reachable: {isReachable ? '✅ Yes' : '❌ No'}</Text>
 			{data !== null ? (
 				<>
-					<ProcessWidget processAmount={data.process_count}/>
+					<ProcessWidget processAmount={data.process_count} server={server}/>
 					<CpuPercentageWidget percentage={data.cpu_usage}/>
 					<DiskUsageWidget disk={data.disk} />
 					<NetworkWidget networks={data.network}/>	
