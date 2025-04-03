@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { Text, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { CpuPercentageWidgetSmall } from './widgets/CPU';
 import { MemoryUsageSmall } from './widgets/Memory';
+import Reachable from './widgets/Reachable';
 
 interface ServerBlockProps {
 	name: string;
@@ -41,18 +42,20 @@ export default function ServerBlock({ name, ip, port, onpress }: ServerBlockProp
 
 	return (
 		<TouchableOpacity style={styles.container} onPress={onpress}>
+			<View style={styles.reachable}>
+				<Reachable isReachable={isReachable}/>
+			</View>
 			<Text style={styles.name}>{name}</Text>
 			<Text style={styles.details}>IP: {ip}</Text>
 			<Text style={styles.details}>Port: {port}</Text>
 			<Text style={styles.details}>Reachable: {isReachable ? 'Yes' : 'No'}</Text>
-			{data ? (
+			{isReachable && data ? (
 				<>
 					<CpuPercentageWidgetSmall percentage={data.cpu_usage}/>
 					<MemoryUsageSmall memory={data.memory}/>
-					<Text style={styles.details}>Raw data: {JSON.stringify(data)}</Text>
 				</>
 			) : (
-				<Text style={styles.details}>No data.</Text>
+				<Text style={styles.details}>No data. (Server Offline)</Text>
 			)}
 		</TouchableOpacity>
 	);
@@ -74,6 +77,14 @@ const styles = StyleSheet.create({
 	details: {
 		fontSize: 14,
 		color: '#555',
+	},
+	reachable: {
+		position: 'absolute',
+		top: 10,
+		right: 0,
+		width: 20,
+		height: 20,
+		backgroundColor: 'transparent',
 	},
 });
 

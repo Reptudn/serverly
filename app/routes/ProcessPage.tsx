@@ -1,78 +1,82 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import WidgetStyles from '../styles/Widgets';
 import { CpuPercentageWidgetSmall } from '../components/widgets/CPU';
 
 interface ProcessStatsScreenProps {
-    route: {
-        params: {
-            server: Server;
-        }
-    }
+	route: {
+		params: {
+			server: Server;
+		}
+	}
 }
 
 function ProcessItem({ proc }: { proc: Process }) {
 
-    return (
-        <View style={WidgetStyles.container}>
-            <Text style={WidgetStyles.title}>{proc.name}</Text>
-            <Text>PID: {proc.name}</Text>
-            <CpuPercentageWidgetSmall percentage={proc.cpu_percent}/>
-            <Text>Memory: RSS={proc.memory.rss} VMS={proc.memory.vms}</Text>
-        </View>
-    );
+	return (
+		<View style={WidgetStyles.container}>
+			<Text style={WidgetStyles.title}>{proc.name}</Text>
+			<Text>PID: {proc.name}</Text>
+			<CpuPercentageWidgetSmall percentage={proc.cpu_percent}/>
+			<Text>Memory: RSS={proc.memory.rss} VMS={proc.memory.vms}</Text>
+		</View>
+	);
 }
 
 export default function ProcessScreen({ route }: ProcessStatsScreenProps) {
-    const { server } = route.params;
-    const [processes, setProcesses] = useState<Process[]>([]);
+	const { server } = route.params;
+	const [processes, setProcesses] = useState<Process[]>([]);
 
-    useEffect(() => {
-            let isMounted = true;
-    
-    
-            const fetchStatus = async () => {
-                const data: Process[] | null = await getServerStatus(server.ip, server.port);
-                if (!isMounted) return;
-                setProcesses(data ? data : []);
-            }
-    
-            const fetchContinuously = async () => {
-                while (isMounted) {
-                    await fetchStatus(); // Wait for the current fetch to complete
-                    await new Promise((resolve) => setTimeout(resolve, 3000)); // Wait 5 seconds before the next fetch
-                }
-            };
-    
-            fetchContinuously();
-    
-            return () => {
-                isMounted = false;
-            }
-        }, [server.ip, server.port]);
+	useEffect(() => {
+			let isMounted = true;
+	
+	
+			const fetchStatus = async () => {
+				const data: Process[] | null = await getServerStatus(server.ip, server.port);
+				if (!isMounted) return;
+				setProcesses(data ? data : []);
+			}
+	
+			const fetchContinuously = async () => {
+				while (isMounted) {
+					await fetchStatus(); // Wait for the current fetch to complete
+					await new Promise((resolve) => setTimeout(resolve, 3000)); // Wait 5 seconds before the next fetch
+				}
+			};
+	
+			fetchContinuously();
+	
+			return () => {
+				isMounted = false;
+			}
+		}, [server.ip, server.port]);
 
-    return (
-        <>
-            { (processes && processes.length > 0) ? (
-                <>
-                <Text>Total Processes: {processes.length}</Text>
-                <FlatList 
-                    data={processes}
-                    keyExtractor={(process) => String(process.pid)}
-                    renderItem={({ item }) => (
-                        <ProcessItem proc={item}/>
-                    )}
-                    maxToRenderPerBatch={30}
-                    ItemSeparatorComponent={() => <View style={WidgetStyles.separator} />}
-                />
-                </>
-            ) : (
-                <Text>No running processes.. HOW?</Text>
-            )}
+	return (
+		<>
+			{ (processes && processes.length > 0) ? (
+				<>
+				<Text>Total Processes: {processes.length}</Text>
+				<FlatList 
+					data={processes}
+					keyExtractor={(process) => String(process.pid)}
+					renderItem={({ item }) => (
+						<ProcessItem proc={item}/>
+					)}
+					maxToRenderPerBatch={30}
+					ItemSeparatorComponent={() => <View style={WidgetStyles.separator} />}
+				/>
+				</>
+			) : (
+				<ActivityIndicator size="large" color="#0000ff" style={{
+					flex: 1,
+					justifyContent: 'center',
+					alignItems: 'center',
+				}} />
+			)}
 
-        </>
-    );
+		</>
+	);
 };
 
 const getServerStatus = async (ip: string, port: number) => {

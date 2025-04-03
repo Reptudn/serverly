@@ -92,19 +92,18 @@ func getProcesses() ([]map[string]interface{}, error) {
 
 	var processList []map[string]interface{}
 	for _, proc := range processes {
-		// Fetch process details
-		name, _ := proc.Name()             // Get the process name
-		pid := proc.Pid                    // Get the process ID
-		cpuPercent, _ := proc.CPUPercent() // Get CPU usage percentage
-		memInfo, _ := proc.MemoryInfo()    // Get memory usage info
+		name, _ := proc.Name()
+		pid := proc.Pid
+		cpuPercent, _ := proc.CPUPercent()
+		memInfo, _ := proc.MemoryInfo()
 
 		processList = append(processList, map[string]interface{}{
 			"pid":         pid,
 			"name":        name,
 			"cpu_percent": cpuPercent,
 			"memory": map[string]interface{}{
-				"rss": memInfo.RSS, // Resident Set Size (memory in bytes)
-				"vms": memInfo.VMS, // Virtual Memory Size (memory in bytes)
+				"rss": memInfo.RSS,
+				"vms": memInfo.VMS,
 			},
 		})
 	}

@@ -1,24 +1,24 @@
 import React from 'react';
 import { View, StyleSheet, ViewStyle } from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
 
 interface ProgressBarProps {
 	progress: number;
 	style?: ViewStyle;
 }
 
-// XXX: DOESNT WORK
-
 const ProgressBar: React.FC<ProgressBarProps> = ({ progress, style }) => {
 const percentage = Math.min(Math.max(progress, 0), 100);
 
 	return (
 		<View style={[styles.container, style]}>
-			<LinearGradient
-				colors={['#4CAF50', '#FFA500', '#FF0000']}
-				start={{x: 0, y: 0}}
-				end={{x: 1, y: 0}}
-				style={[styles.bar, { width: `${percentage}%` }]}
+			<View
+				style={[
+					styles.bar,
+					{
+						width: `${percentage}%`,
+						backgroundColor: `rgb(${Math.min(255, (percentage / 100) * 255)}, ${Math.max(0, 255 - (percentage / 100) * 255)}, 0)`,
+					},
+				]}
 			/>
 		</View>
 	);

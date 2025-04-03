@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { CpuPercentageWidget } from '../components/widgets/CPU';
 import MemoryUsageWidget from '../components/widgets/Memory';
 import DiskUsageWidget from '../components/widgets/Disk';
@@ -69,9 +69,11 @@ export default function ServerDetailsScreen({ route }: ServerDetailsScreenProps)
 					</View>
 				</>
 			) : (
-				<>
-					<Text style={WidgetStyles.text}>No Data</Text>
-				</>
+				<ActivityIndicator size="large" color="#0000ff" style={{
+					flex: 1,
+					justifyContent: 'center',
+					alignItems: 'center',
+				}} />
 			)}
 		</ScrollView>
 	);

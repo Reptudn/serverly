@@ -25,12 +25,16 @@ function NetworkItem({ network }: NetworkItemProps) {
 	};
 
 	return (
-		<View style={WidgetStyles.container}>
-			<Text style={WidgetStyles.text}>Interface: {network.interface}</Text>
-			<Text style={WidgetStyles.text}>Bytes sent: {bytesToHumanReadable(network.bytes_sent)}</Text>
-			<Text style={WidgetStyles.text}>Bytes received: {bytesToHumanReadable(network.bytes_recv)}</Text>
-			<Text style={WidgetStyles.text}>Packets sent: {network.packets_sent}</Text>
-			<Text style={WidgetStyles.text}>Packets received: {network.packets_recv}</Text>
+		<View style={styles.itemContainer}>
+			<Text style={WidgetStyles.title}>{network.interface}</Text>
+
+			<Text style={WidgetStyles.text}>Traffic:</Text>
+			<Text style={WidgetStyles.text}>Sent: {bytesToHumanReadable(network.bytes_sent)}</Text>
+			<Text style={WidgetStyles.text}>Received: {bytesToHumanReadable(network.bytes_recv)}</Text>
+			
+			<Text style={WidgetStyles.text}>Packets:</Text>
+			<Text style={WidgetStyles.text}>Sent: {network.packets_sent}</Text>
+			<Text style={WidgetStyles.text}>Received: {network.packets_recv}</Text>
 		</View>
 	);
 }
@@ -51,3 +55,18 @@ export default function NetworkWidget({ networks }: NetworkPorps) {
 		</View>
 	);
 }
+
+const styles = StyleSheet.create({
+	itemContainer: {
+		flex: 1,
+		padding: 10,
+		backgroundColor: '#fff',
+		borderRadius: 10,
+		margin: 10,
+		width: 200,
+		height: 200,
+		borderColor: '#ccc',
+		borderWidth: 1,
+		shadowColor: '#000',
+	},
+});

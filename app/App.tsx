@@ -5,7 +5,6 @@ import HomeScreen from './routes/HomeScreen';
 import ServerDetailsScreen from './routes/ServerDetails';
 import DockerStatsScreen from './routes/DockerStats';
 
-import { ParamListBase } from '@react-navigation/native';
 import ProcessScreen from './routes/ProcessPage';
 
 export type AppStackParamList = {

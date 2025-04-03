@@ -2,15 +2,15 @@ import React from 'react';
 import { Text, View } from 'react-native';
 
 // like a red or green circle that shows the status
-export default function Reachable(isReachable: boolean) {
+export default function Reachable({ isReachable }: {isReachable: boolean}) {
 
 	return (
 		<View>
 			{
 				isReachable ? (
-					<Text>Reachable</Text>
+					<View style={{ width: 10, height: 10, borderRadius: 5, backgroundColor: 'green' }} />
 				) : (
-					<Text>Not Reachable</Text>
+					<View style={{ width: 10, height: 10, borderRadius: 5, backgroundColor: 'red' }} />
 				)
 			}
 		</View>
