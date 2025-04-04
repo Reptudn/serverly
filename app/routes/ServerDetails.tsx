@@ -72,7 +72,7 @@ export default function ServerDetailsScreen({ route }: ServerDetailsScreenProps)
 				<ActivityIndicator size="large" color="#0000ff" style={{
 					flex: 1,
 					justifyContent: 'center',
-					alignItems: 'center',
+					alignItems: 'center'
 				}} />
 			)}
 		</ScrollView>

@@ -3,6 +3,7 @@ import { Text, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { CpuPercentageWidgetSmall } from './widgets/CPU';
 import { MemoryUsageSmall } from './widgets/Memory';
 import Reachable from './widgets/Reachable';
+import WidgetStyles from '../styles/Widgets';
 
 interface ServerBlockProps {
 	name: string;
@@ -49,6 +50,7 @@ export default function ServerBlock({ name, ip, port, onpress }: ServerBlockProp
 			<Text style={styles.details}>IP: {ip}</Text>
 			<Text style={styles.details}>Port: {port}</Text>
 			<Text style={styles.details}>Reachable: {isReachable ? 'Yes' : 'No'}</Text>
+			<View style={WidgetStyles.separator} />
 			{isReachable && data ? (
 				<>
 					<CpuPercentageWidgetSmall percentage={data.cpu_usage}/>

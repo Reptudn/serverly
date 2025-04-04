@@ -35,7 +35,7 @@ export function MemoryUsageSmall({ memory }: MemoryProps) {
 
 	return (
 		<View>
-			<Text style={WidgetStyles.text}>Memory: {memory.used_pct.toPrecision(4)}%</Text>
+			<Text>Memory: {memory.used_pct.toPrecision(4)}%</Text>
 			<ProgressBar progress={memory.used_pct} style={{ width: '100%', height: 10, borderRadius: 5 }} />
 		</View>
 	);

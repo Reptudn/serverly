@@ -13,6 +13,7 @@ const WidgetStyles = StyleSheet.create({
 		elevation: 3, // Shadow for Android
 		borderWidth: 1,
 		borderColor: '#e0e0e0', // Light border for subtle separation
+		height: 'auto'
 	},
 	title: {
 		fontSize: 20, // Slightly larger font for the title

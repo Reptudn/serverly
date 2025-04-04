@@ -27,11 +27,11 @@ function NetworkItem({ network }: NetworkItemProps) {
 	return (
 		<View style={styles.itemContainer}>
 			<Text style={WidgetStyles.title}>{network.interface}</Text>
-
+			<View style={WidgetStyles.separator} />
 			<Text style={WidgetStyles.text}>Traffic:</Text>
 			<Text style={WidgetStyles.text}>Sent: {bytesToHumanReadable(network.bytes_sent)}</Text>
 			<Text style={WidgetStyles.text}>Received: {bytesToHumanReadable(network.bytes_recv)}</Text>
-			
+			<View style={WidgetStyles.separator} />
 			<Text style={WidgetStyles.text}>Packets:</Text>
 			<Text style={WidgetStyles.text}>Sent: {network.packets_sent}</Text>
 			<Text style={WidgetStyles.text}>Received: {network.packets_recv}</Text>
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
 		borderRadius: 10,
 		margin: 10,
 		width: 200,
-		height: 200,
+		height: 'auto',
 		borderColor: '#ccc',
 		borderWidth: 1,
 		shadowColor: '#000',
