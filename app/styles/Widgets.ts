@@ -57,7 +57,9 @@ export const ButtonStyles = StyleSheet.create({
 
 export const TextStyles = StyleSheet.create({
 	primary: {
-		color: '#F8FAFC'
+		color: '#F8FAFC',
+		textDecorationColor: '#F8FAFC',
+		fontSize: 300
 	}
 });
 
