@@ -1,14 +1,14 @@
 {
   "expo": {
-    "name": "Server Stats Companion",
-    "slug": "server-stats-app",
-    "version": "1.0.0",
+    "name": "Serverly",
+    "slug": "serverly",
+    "version": "0.1.2",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/splash-screen.png",
     "userInterfaceStyle": "dark",
     "newArchEnabled": true,
     "splash": {
-      "image": "./assets/splash-icon.png",
+      "image": "./assets/splash-screen.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },

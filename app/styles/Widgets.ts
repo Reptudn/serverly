@@ -4,7 +4,7 @@ const WidgetStyles = StyleSheet.create({
 	container: {
 		padding: 15,
 		marginVertical: 10,
-		backgroundColor: '#ffffff', // White background for a clean look
+		backgroundColor: '#1E293B', // White background for a clean look
 		borderRadius: 10, // Rounded corners
 		shadowColor: '#000', // Shadow for depth
 		shadowOffset: { width: 0, height: 2 },
@@ -18,12 +18,12 @@ const WidgetStyles = StyleSheet.create({
 	title: {
 		fontSize: 20, // Slightly larger font for the title
 		fontWeight: '600', // Semi-bold for emphasis
-		color: '#333', // Darker text for better readability
+		color: '#F8FAFC', // Darker text for better readability
 		marginBottom: 8, // Space between title and content
 	},
 	text: {
 		fontSize: 16, // Slightly larger font for content
-		color: '#666', // Softer text color for secondary information
+		color: '#94A3B8', // Softer text color for secondary information
 		lineHeight: 22, // Better readability with increased line height
 	},
 	separator: {
@@ -31,6 +31,34 @@ const WidgetStyles = StyleSheet.create({
 		backgroundColor: '#e0e0e0', // Subtle separator line
 		marginVertical: 10,
 	},
+});
+
+
+export const PageStyles = StyleSheet.create({
+	background: {
+		backgroundColor: '#0F172A'
+	},
+});
+
+export const AccentSyles = StyleSheet.create({
+	primary: {
+		backgroundColor: '#14B8A6'
+	},
+	secondary: {
+		backgroundColor: '#38BDF8'
+	}
+});
+
+export const ButtonStyles = StyleSheet.create({
+	primary: {
+		backgroundColor: '#F8FAFC'
+	}
+});
+
+export const TextStyles = StyleSheet.create({
+	primary: {
+		color: '#F8FAFC'
+	}
 });
 
 export default WidgetStyles;

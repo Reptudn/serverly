@@ -8,9 +8,15 @@ export default function Reachable({ isReachable }: {isReachable: boolean}) {
 		<View>
 			{
 				isReachable ? (
-					<View style={{ width: 10, height: 10, borderRadius: 5, backgroundColor: 'green' }} />
+					<>
+					<View style={{ width: 10, height: 10, borderRadius: 5, backgroundColor: '#10B981' }} />
+					<Text>Reachable</Text>
+					</>
 				) : (
-					<View style={{ width: 10, height: 10, borderRadius: 5, backgroundColor: 'red' }} />
+					<>
+					<View style={{ width: 10, height: 10, borderRadius: 5, backgroundColor: '#EF4444' }} />
+					<Text>Unreachable</Text>
+					</>
 				)
 			}
 		</View>

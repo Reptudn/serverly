@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Modal, View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
+import { Modal, View, Text, TextInput, Button, StyleSheet, Alert, TouchableOpacity } from 'react-native';
+import { ButtonStyles, TextStyles } from '../styles/Widgets';
 
 interface AddServerButtonProps {
 	onAddServer: (server: { id: string; name: string; ip: string; port: number }) => void;
@@ -34,7 +35,9 @@ export default function AddServerButton({ onAddServer }: AddServerButtonProps) {
 
 	return (
 		<View>
-			<Button title="Add Server" onPress={() => setModalVisible(true)} />
+			<TouchableOpacity onPress={() => setModalVisible(true)} style={ButtonStyles.primary}>
+				<Text style={TextStyles.primary}>Add Server</Text>
+			</TouchableOpacity>
 			<Modal
 				visible={modalVisible}
 				animationType="slide"
