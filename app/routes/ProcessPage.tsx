@@ -35,6 +35,11 @@ export default function ProcessScreen({ route }: ProcessStatsScreenProps) {
 			const fetchStatus = async () => {
 				const data: Process[] | null = await getServerStatus(server.ip, server.port);
 				if (!isMounted) return;
+				if (data)
+				{
+					data.sort((a, b) => b.cpu_percent - a.cpu_percent);
+					data.filter((proc) => proc.cpu_percent >= 1);
+				}
 				setProcesses(data ? data : []);
 			}
 	

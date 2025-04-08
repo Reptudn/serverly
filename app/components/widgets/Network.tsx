@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { FlatList, ScrollView, StyleSheet, Text, View } from 'react-native';
 import WidgetStyles from '../../styles/Widgets';
+import { bytesToHuman } from '../../utils/Conversion';
 
 interface NetworkPorps {
 	networks: Network[];
@@ -12,25 +13,13 @@ interface NetworkItemProps {
 
 function NetworkItem({ network }: NetworkItemProps) {
 
-	const bytesToHumanReadable = (bytes: number): string => {
-		const units = ['B', 'KB', 'MB', 'GB', 'TB', 'PB'];
-		let unitIndex = 0;
-
-		while (bytes >= 1024 && unitIndex < units.length - 1) {
-			bytes /= 1024;
-			unitIndex++;
-		}
-
-		return `${bytes.toFixed(2)} ${units[unitIndex]}`;
-	};
-
 	return (
 		<View style={styles.itemContainer}>
 			<Text style={WidgetStyles.title}>{network.interface}</Text>
 			<View style={WidgetStyles.separator} />
 			<Text style={WidgetStyles.text}>Traffic:</Text>
-			<Text style={WidgetStyles.text}>Sent: {bytesToHumanReadable(network.bytes_sent)}</Text>
-			<Text style={WidgetStyles.text}>Received: {bytesToHumanReadable(network.bytes_recv)}</Text>
+			<Text style={WidgetStyles.text}>Sent: {bytesToHuman(network.bytes_sent)}</Text>
+			<Text style={WidgetStyles.text}>Received: {bytesToHuman(network.bytes_recv)}</Text>
 			<View style={WidgetStyles.separator} />
 			<Text style={WidgetStyles.text}>Packets:</Text>
 			<Text style={WidgetStyles.text}>Sent: {network.packets_sent}</Text>

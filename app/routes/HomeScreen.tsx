@@ -69,7 +69,6 @@ export default function HomeScreen({ navigation }: any) {
 	return (
 		<GestureHandlerRootView style={{ flex: 1 }}>
 			<View style={styles.container}>
-				<Text style={styles.title}>Your Servers</Text>
 				{servers.length > 0 ? (
 					<FlatList
 						data={servers}

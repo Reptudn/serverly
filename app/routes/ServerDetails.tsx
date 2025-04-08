@@ -51,7 +51,7 @@ export default function ServerDetailsScreen({ route }: ServerDetailsScreenProps)
 
 	return (
 		<ScrollView style={styles.container}>
-			<Text style={styles.title}>{server.name} - Details</Text>
+			<Text style={styles.title}>{server.name}</Text>
 			<Text>IP: {server.ip}</Text>
 			<Text>Port: {server.port}</Text>
 			<Text>Reachable: {isReachable ? '✅ Yes' : '❌ No'}</Text>
@@ -59,9 +59,9 @@ export default function ServerDetailsScreen({ route }: ServerDetailsScreenProps)
 				<>
 					<ProcessWidget processAmount={data.process_count} server={server}/>
 					<CpuPercentageWidget percentage={data.cpu_usage}/>
+					<MemoryUsageWidget memory={data.memory}/>
 					<DiskUsageWidget disk={data.disk} />
 					<NetworkWidget networks={data.network}/>	
-					<MemoryUsageWidget memory={data.memory}/>
 					<DockerContainerListWidget dockerContainers={data.docker as DockerContainer[]}/>
 					<View style={WidgetStyles.container}>
 						<Text style={WidgetStyles.title}>Raw Data</Text>

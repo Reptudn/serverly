@@ -14,7 +14,12 @@ export default function ProcessWidget({processAmount, server}: {processAmount: n
     return (
         <TouchableOpacity 
             style={WidgetStyles.container}
-            onPress={() => navigation.navigate("Process Details", { server })}
+            onPress={() =>
+                navigation.navigate("Process Details", {
+                    server,
+                    title: `Process details for ${server.name}`
+                 })
+            }
         >
             <Text style={WidgetStyles.title}>Process</Text>
             <Text style={WidgetStyles.text}>{processAmount} currently runing processes</Text>
