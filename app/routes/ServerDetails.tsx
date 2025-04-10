@@ -5,9 +5,10 @@ import MemoryUsageWidget from '../components/widgets/Memory';
 import DiskUsageWidget from '../components/widgets/Disk';
 import NetworkWidget from '../components/widgets/Network';
 import DockerContainerListWidget from '../components/widgets/Docker';
-import WidgetStyles from '../styles/Widgets';
+import WidgetStyles, { PageStyles } from '../styles/Widgets';
 import ProcessWidget from '../components/widgets/Process';
 import { useNavigation } from '@react-navigation/native';
+import Reachable from '../components/widgets/Reachable';
 
 interface ServerDetailsScreenProps {
 	route: {
@@ -50,19 +51,19 @@ export default function ServerDetailsScreen({ route }: ServerDetailsScreenProps)
 	}, [server.ip, server.port]);
 
 	return (
-		<ScrollView style={styles.container}>
-			<Text style={styles.title}>{server.name}</Text>
-			<Text>IP: {server.ip}</Text>
-			<Text>Port: {server.port}</Text>
-			<Text>Reachable: {isReachable ? '✅ Yes' : '❌ No'}</Text>
+		<ScrollView style={PageStyles.background}>
+			<Text style={WidgetStyles.title}>{server.name}</Text>
+			<Text style={WidgetStyles.text}>IP: {server.ip}</Text>
+			<Text style={WidgetStyles.text}>Port: {server.port}</Text>
+			<Reachable isReachable={isReachable}/>
 			{data !== null ? (
 				<>
 					<ProcessWidget processAmount={data.process_count} server={server}/>
-					<CpuPercentageWidget percentage={data.cpu_usage}/>
-					<MemoryUsageWidget memory={data.memory}/>
+					<CpuPercentageWidget percentage={data.cpu_usage} cacheAmount={100}/>
+					<MemoryUsageWidget memory={data.memory} cacheAmount={100}/>
 					<DiskUsageWidget disk={data.disk} />
 					<NetworkWidget networks={data.network}/>	
-					<DockerContainerListWidget dockerContainers={data.docker as DockerContainer[]}/>
+					<DockerContainerListWidget dockerContainers={data.docker}/>
 					<View style={WidgetStyles.container}>
 						<Text style={WidgetStyles.title}>Raw Data</Text>
 						<Text style={WidgetStyles.text}>{JSON.stringify(data, null, 2)}</Text>

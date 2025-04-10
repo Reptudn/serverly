@@ -4,6 +4,7 @@ import { GestureHandlerRootView, Swipeable } from 'react-native-gesture-handler'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ServerBlock from '../components/ServerBlock';
 import AddServerButton from '../components/AddServerButton';
+import WidgetStyles, { PageStyles } from '../styles/Widgets';
 
 export default function HomeScreen({ navigation }: any) {
 	const [servers, setServers] = useState<Server[]>([]);
@@ -68,7 +69,7 @@ export default function HomeScreen({ navigation }: any) {
 
 	return (
 		<GestureHandlerRootView style={{ flex: 1 }}>
-			<View style={styles.container}>
+			<View style={PageStyles.background}>
 				{servers.length > 0 ? (
 					<FlatList
 						data={servers}
@@ -89,11 +90,11 @@ export default function HomeScreen({ navigation }: any) {
 						ListFooterComponent={<AddServerButton onAddServer={addServer} />}
 					/>
 				) : (
-					<>
-						<Text>No Servers added yet :c</Text>
-						<Text>Click the button below to add a server.</Text>
+					<View style={noServersStyles.container}>
+						<Text style={WidgetStyles.title}>No Servers added yet :c</Text>
+						<Text style={WidgetStyles.text}>Click the button below to add a server.</Text>
 						<AddServerButton onAddServer={addServer} />
-					</>
+					</View>
 				)}
 			</View>
 		</GestureHandlerRootView>
@@ -103,7 +104,7 @@ export default function HomeScreen({ navigation }: any) {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: '#fff',
+		backgroundColor: '#0F172A',
 		padding: 20,
 	},
 	title: {
@@ -115,8 +116,9 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 		alignItems: 'center',
 		width: 100,
-		height: '90%',
-		borderRadius: 42
+		height: '50%',
+		borderRadius: 42,
+		backgroundColor: '#1E293B'
 	},
 	actionText: {
 		color: '#fff',
@@ -124,3 +126,12 @@ const styles = StyleSheet.create({
 		fontSize: 16,
 	},
 });
+
+const noServersStyles = StyleSheet.create({
+	container: {
+		flex: 1,
+		alignItems: 'center',
+		justifyContent: 'center',
+		gap: 10
+	}
+}); 

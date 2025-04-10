@@ -6,6 +6,7 @@ import ServerDetailsScreen from './routes/ServerDetails';
 import DockerStatsScreen from './routes/DockerStats';
 
 import ProcessScreen from './routes/ProcessPage';
+import HomeScreenTopMenu from './components/menu/HomeScreenTopMenu';
 
 export type AppStackParamList = {
     "Server List": undefined;
@@ -27,8 +28,9 @@ export default function App() {
                     name="Server List" 
                     component={HomeScreen} 
                     options={{
-                        headerTitle: "Your Servers"
-                    }}    
+                        headerTitle: "Your Servers",
+                        // header: () => <HomeScreenTopMenu />
+                    }} 
                 />
                 <Stack.Screen name="Server Details" component={ServerDetailsScreen} />
                 <Stack.Screen name="Docker Details" component={DockerStatsScreen} />

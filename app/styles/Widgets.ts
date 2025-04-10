@@ -4,15 +4,15 @@ const WidgetStyles = StyleSheet.create({
 	container: {
 		padding: 15,
 		marginVertical: 10,
-		backgroundColor: '#1E293B', // White background for a clean look
-		borderRadius: 10, // Rounded corners
-		shadowColor: '#000', // Shadow for depth
+		backgroundColor: '#1E293B',
+		borderRadius: 10,
+		shadowColor: '#000',
 		shadowOffset: { width: 0, height: 2 },
-		shadowOpacity: 0.1,
+		shadowOpacity: 0.5,
 		shadowRadius: 4,
-		elevation: 3, // Shadow for Android
-		borderWidth: 1,
-		borderColor: '#e0e0e0', // Light border for subtle separation
+		elevation: 3,
+		// borderWidth: 1,
+		// borderColor: '#e0e0e0',
 		height: 'auto'
 	},
 	title: {
@@ -36,7 +36,9 @@ const WidgetStyles = StyleSheet.create({
 
 export const PageStyles = StyleSheet.create({
 	background: {
-		backgroundColor: '#0F172A'
+		backgroundColor: '#0F172A',
+		flex: 1,
+		padding: 20
 	},
 });
 
@@ -51,7 +53,14 @@ export const AccentSyles = StyleSheet.create({
 
 export const ButtonStyles = StyleSheet.create({
 	primary: {
-		backgroundColor: '#F8FAFC'
+		backgroundColor: '#0EA5E9',
+		width: '100%',
+		height: 'auto',
+		borderRadius: 20,
+		color: '#0EA5E9',
+		alignItems: 'center',
+		textAlign: 'center',
+		padding: 20
 	}
 });
 
@@ -59,7 +68,7 @@ export const TextStyles = StyleSheet.create({
 	primary: {
 		color: '#F8FAFC',
 		textDecorationColor: '#F8FAFC',
-		fontSize: 300
+		fontSize: 30
 	}
 });
 

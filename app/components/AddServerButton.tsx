@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Modal, View, Text, TextInput, Button, StyleSheet, Alert, TouchableOpacity } from 'react-native';
-import { ButtonStyles, TextStyles } from '../styles/Widgets';
+import WidgetStyles, { ButtonStyles, TextStyles } from '../styles/Widgets';
 
 interface AddServerButtonProps {
 	onAddServer: (server: { id: string; name: string; ip: string; port: number }) => void;
@@ -11,6 +11,7 @@ export default function AddServerButton({ onAddServer }: AddServerButtonProps) {
 	const [name, setName] = useState('');
 	const [ip, setIp] = useState('');
 	const [port, setPort] = useState('');
+	const [password, setPassword] = useState('');
 
 	const handleAddServer = () => {
 		const isValidIp = (ip: string) =>
@@ -36,7 +37,7 @@ export default function AddServerButton({ onAddServer }: AddServerButtonProps) {
 	return (
 		<View>
 			<TouchableOpacity onPress={() => setModalVisible(true)} style={ButtonStyles.primary}>
-				<Text style={TextStyles.primary}>Add Server</Text>
+				<Text style={WidgetStyles.title}>+ Add Server</Text>
 			</TouchableOpacity>
 			<Modal
 				visible={modalVisible}
@@ -55,7 +56,7 @@ export default function AddServerButton({ onAddServer }: AddServerButtonProps) {
 						/>
 						<TextInput
 							style={styles.input}
-							placeholder="IP Address"
+							placeholder="IP Address / URL"
 							value={ip}
 							onChangeText={setIp}
 						/>
@@ -65,6 +66,12 @@ export default function AddServerButton({ onAddServer }: AddServerButtonProps) {
 							value={port}
 							keyboardType="numeric"
 							onChangeText={setPort}
+						/>
+						<TextInput
+							style={styles.input}
+							placeholder="Password (optional)"
+							value={password}
+							onChangeText={setPassword}
 						/>
 						<View style={styles.buttonContainer}>
 							<Button title="Cancel" onPress={() => setModalVisible(false)} />

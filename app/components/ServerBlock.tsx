@@ -42,14 +42,14 @@ export default function ServerBlock({ name, ip, port, onpress }: ServerBlockProp
 	}, [ip, port]);
 
 	return (
-		<TouchableOpacity style={styles.container} onPress={onpress}>
+		<TouchableOpacity style={WidgetStyles.container} onPress={onpress}>
 			<View style={styles.reachable}>
 				<Reachable isReachable={isReachable}/>
 			</View>
-			<Text style={styles.name}>{name}</Text>
-			<Text style={styles.details}>IP: {ip}</Text>
-			<Text style={styles.details}>Port: {port}</Text>
-			<Text style={styles.details}>Reachable: {isReachable ? 'Yes' : 'No'}</Text>
+			<Text style={WidgetStyles.title}>{name}</Text>
+			<Text style={WidgetStyles.text}>IP: {ip}</Text>
+			<Text style={WidgetStyles.text}>Port: {port}</Text>
+			<Text style={WidgetStyles.text}>Reachable: {isReachable ? 'Yes' : 'No'}</Text>
 			<View style={WidgetStyles.separator} />
 			{isReachable && data ? (
 				<>
@@ -57,7 +57,7 @@ export default function ServerBlock({ name, ip, port, onpress }: ServerBlockProp
 					<MemoryUsageSmall memory={data.memory}/>
 				</>
 			) : (
-				<Text style={styles.details}>No data. (Server Offline)</Text>
+				<Text style={WidgetStyles.text}>No data. (Server Offline)</Text>
 			)}
 		</TouchableOpacity>
 	);
@@ -68,8 +68,6 @@ const styles = StyleSheet.create({
 		padding: 10,
 		marginVertical: 5,
 		backgroundColor: '#f9f9f9',
-		borderWidth: 1,
-		borderColor: '#ddd',
 		borderRadius: 5,
 	},
 	name: {
@@ -82,8 +80,8 @@ const styles = StyleSheet.create({
 	},
 	reachable: {
 		position: 'absolute',
-		top: 10,
-		right: 0,
+		top: 20,
+		right: 100,
 		width: 20,
 		height: 20,
 		backgroundColor: 'transparent',
