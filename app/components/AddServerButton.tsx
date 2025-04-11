@@ -46,8 +46,8 @@ export default function AddServerButton({ onAddServer }: AddServerButtonProps) {
 				onRequestClose={() => setModalVisible(false)}
 			>
 				<View style={styles.modalContainer}>
-					<View style={styles.modalContent}>
-						<Text style={styles.modalTitle}>Add New Server</Text>
+					<View style={WidgetStyles.container}>
+						<Text style={WidgetStyles.title}>Add New Server</Text>
 						<TextInput
 							style={styles.input}
 							placeholder="Server Name"

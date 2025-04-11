@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { FlatList, ScrollView, StyleSheet, Text, View } from 'react-native';
-import WidgetStyles from '../../styles/Widgets';
+import WidgetStyles, { PageStyles } from '../../styles/Widgets';
 import { bytesToHuman } from '../../utils/Conversion';
 
 interface NetworkPorps {
@@ -14,7 +14,7 @@ interface NetworkItemProps {
 function NetworkItem({ network }: NetworkItemProps) {
 
 	return (
-		<View style={styles.itemContainer}>
+		<View style={WidgetStyles.container}>
 			<Text style={WidgetStyles.title}>{network.interface}</Text>
 			<View style={WidgetStyles.separator} />
 			<Text style={WidgetStyles.text}>Traffic:</Text>

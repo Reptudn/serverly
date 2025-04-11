@@ -16,12 +16,6 @@ export default function MemoryUsageWidget({ memory, cacheAmount }: { memory: Mem
 	useEffect(() => {
 		setMemoryStats((prevStats) => {
 			// Add the new memory percentage to the array
-
-			if (isNaN(memory.used_pct) || memory.used_pct < 0 || memory.used_pct > 100) {
-				console.warn('Invalid memory percentage:', memory.used_pct);
-				return prevStats; // Return the previous state if the value is invalid
-			}
-
 			const updatedStats = [...prevStats, memory.used_pct];
 
 			// Limit the array size to cacheAmount
@@ -44,7 +38,7 @@ export default function MemoryUsageWidget({ memory, cacheAmount }: { memory: Mem
 					labels: [], // Empty labels for a clean look
 					datasets: [{ data: memoryStats }],
 				}}
-				width={screenWidth * 0.9} // Adjust width to fit the container
+				width={screenWidth * 0.83} // Adjust width to fit the container
 				height={200}
 				chartConfig={{
 					backgroundColor: '#38BDF8',
@@ -66,7 +60,8 @@ export default function MemoryUsageWidget({ memory, cacheAmount }: { memory: Mem
 				style={{
 					marginVertical: 10,
 					borderRadius: 15,
-					paddingRight: 0, // Remove padding on the right
+					paddingRight: 0,
+					padding: 3
 				}}
 			/>
 		</View>

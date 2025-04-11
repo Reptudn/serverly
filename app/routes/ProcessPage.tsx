@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
-import WidgetStyles from '../styles/Widgets';
+import WidgetStyles, { PageStyles } from '../styles/Widgets';
 import { CpuPercentageWidgetSmall } from '../components/widgets/CPU';
 
 interface ProcessStatsScreenProps {
@@ -17,9 +17,9 @@ function ProcessItem({ proc }: { proc: Process }) {
 	return (
 		<View style={WidgetStyles.container}>
 			<Text style={WidgetStyles.title}>{proc.name}</Text>
-			<Text>PID: {proc.name}</Text>
+			<Text style={WidgetStyles.text}>PID: {proc.name}</Text>
 			<CpuPercentageWidgetSmall percentage={proc.cpu_percent}/>
-			<Text>Memory: RSS={proc.memory.rss} VMS={proc.memory.vms}</Text>
+			<Text style={WidgetStyles.text}>Memory: RSS={proc.memory.rss} VMS={proc.memory.vms}</Text>
 		</View>
 	);
 }
@@ -58,10 +58,10 @@ export default function ProcessScreen({ route }: ProcessStatsScreenProps) {
 		}, [server.ip, server.port]);
 
 	return (
-		<>
+		<View style={PageStyles.background}>
 			{ (processes && processes.length > 0) ? (
 				<>
-				<Text>Total Processes: {processes.length}</Text>
+				<Text style={WidgetStyles.title}>Total Processes: {processes.length}</Text>
 				<FlatList 
 					data={processes}
 					keyExtractor={(process) => String(process.pid)}
@@ -80,7 +80,7 @@ export default function ProcessScreen({ route }: ProcessStatsScreenProps) {
 				}} />
 			)}
 
-		</>
+		</View>
 	);
 };
 
