@@ -3,6 +3,7 @@
 ### Sever
 
 Clone the server/ folder and then run make or docker compose up -d.. DONE!
+> doesnt currently work.. go to the src folder and run make
 
 ### Phone
 
