@@ -3,7 +3,7 @@ import { Modal, View, Text, TextInput, Button, StyleSheet, Alert, TouchableOpaci
 import WidgetStyles, { ButtonStyles, TextStyles } from '../styles/Widgets';
 
 interface AddServerButtonProps {
-	onAddServer: (server: { id: string; name: string; ip: string; port: number }) => void;
+	onAddServer: (server: { id: string; name: string; ip: string; port: number, password: string }) => void;
 }
 
 export default function AddServerButton({ onAddServer }: AddServerButtonProps) {
@@ -24,6 +24,7 @@ export default function AddServerButton({ onAddServer }: AddServerButtonProps) {
 				name,
 				ip,
 				port: portNumber,
+				password
 			});
 			setName('');
 			setIp('');

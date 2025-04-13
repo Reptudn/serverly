@@ -29,8 +29,10 @@ export default function ServerDetailsScreen({ route }: ServerDetailsScreenProps)
 
 
 		const fetchStatus = async () => {
-			const data: ServerResponseBig | null = await getServerStatus(server.ip, server.port);
+			const data: ServerResponseBig | null = await getServerStatus(server.ip, server.port, server.password);
 			if (!isMounted) return;
+
+			console.info("data", data)
 
 			setReachable(data ? true : false);
 			data ? setData(data) : setData(null);
@@ -55,6 +57,7 @@ export default function ServerDetailsScreen({ route }: ServerDetailsScreenProps)
 			<Text style={WidgetStyles.title}>{server.name}</Text>
 			<Text style={WidgetStyles.text}>IP: {server.ip}</Text>
 			<Text style={WidgetStyles.text}>Port: {server.port}</Text>
+			{server.password && <Text style={WidgetStyles.text}>Password: {server.password}</Text>}
 			<Reachable isReachable={isReachable}/>
 			{data !== null ? (
 				<>
@@ -104,17 +107,26 @@ const styles = StyleSheet.create({
 	},
 });
 
-const getServerStatus = async (ip: string, port: number) => {
+const getServerStatus = async (ip: string, port: number, password: string | undefined) => {
 	try {
-		const endpoint = `http://${ip}:${port}/status/full`;
+		const endpoint = `http://${ip}:${port}/status`;
 
 		// Timeout after 10 seconds
 		const timeout = new Promise((_, reject) =>
 			setTimeout(() => reject(new Error('Network request timed out')), 10000)
 		);
 
-		const response: any = await Promise.race([fetch(endpoint), timeout]);
+		const headers = {
+			method: 'GET',
+			headers: {
+				password: password !== undefined ? password : "",
+			}
+		}
 
+		// console.log(JSON.stringify(headers))
+
+		const response: any = await Promise.race([fetch(endpoint), headers ,timeout]);
+		
 		if (!response.ok) {
 			throw new Error(`Error: ${response.status}`);
 		}

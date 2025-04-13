@@ -3,4 +3,5 @@ interface Server {
 	name: string;
 	ip: string;
 	port: number;
+	password: string | undefined;
 }

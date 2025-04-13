@@ -9,10 +9,11 @@ interface ServerBlockProps {
 	name: string;
 	ip: string;
 	port: number;
+	password: string | undefined;
 	onpress?: () => void;
 }
 
-export default function ServerBlock({ name, ip, port, onpress }: ServerBlockProps) {
+export default function ServerBlock({ name, ip, port, password, onpress }: ServerBlockProps) {
 	const [isReachable, setReachable] = useState(false);
 	const [data, setData] = useState<ServerResponseSmall | null>(null);
 
@@ -20,7 +21,7 @@ export default function ServerBlock({ name, ip, port, onpress }: ServerBlockProp
 		let isMounted = true; // To prevent state updates on unmounted components
 
 		const fetchStatus = async () => {
-			const data: ServerResponseSmall | null = await getServerStatus(ip, port);
+			const data: ServerResponseSmall | null = await getServerStatus(ip, port, password);
 			if (!isMounted) return;
 	
 			setReachable(data ? true : false);
@@ -88,7 +89,7 @@ const styles = StyleSheet.create({
 	},
 });
 
-const getServerStatus = async (ip: string, port: number) => {
+const getServerStatus = async (ip: string, port: number, password: string | undefined) => {
 	try {
 		const endpoint = `http://${ip}:${port}/status`;
 
@@ -97,7 +98,12 @@ const getServerStatus = async (ip: string, port: number) => {
 			setTimeout(() => reject(new Error('Network request timed out')), 10000)
 		);
 
-		const response: any = await Promise.race([fetch(endpoint), timeout]);
+		const response: any = await Promise.race([fetch(endpoint), {
+			method: 'GET',
+			headers: {
+				password: password !== undefined ? password : "",
+			}
+		} ,timeout]);
 
 		if (!response.ok) {
 			throw new Error(`Error: ${response.status}`);

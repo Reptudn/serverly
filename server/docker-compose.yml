@@ -1,0 +1,11 @@
+services:
+  server:
+    container_name: serverly-server
+    build:
+      context: ./service
+      dockerfile: Dockerfile
+    ports:
+      - ${SERVER_PORT}:8080 #leave the container port on 8080
+    environment:
+      - SERVER_PASSWORD=${SERVER_PASSWORD}
+

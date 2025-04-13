@@ -3,7 +3,9 @@ package main
 // get ip with `ifconfig | grep inet`
 
 import (
+	"fmt"
 	"net/http"
+	"os"
 
 	"github.com/gin-gonic/gin"
 	"github.com/shirou/gopsutil/v3/cpu"
@@ -91,7 +93,30 @@ func getStatusFull() (map[string]interface{}, error) {
 }
 
 func main() {
+
+	serverPassword := os.Getenv("SERVER_PASSWORD")
+
 	router := gin.Default()
+
+	router.Use(func(c *gin.Context) {
+
+		fmt.Println("Headers", c.Request.Header)
+
+		if serverPassword == "" {
+			c.Next()
+			return
+		}
+
+		pass := c.GetHeader("password")
+		fmt.Println("Received password header:", pass)
+		if pass != serverPassword {
+			fmt.Println("Password err: " + pass + " != " + serverPassword)
+			c.JSON(http.StatusUnauthorized, gin.H{"error": "Unauthorized or password not given!"})
+			c.Abort()
+			return
+		}
+		c.Next()
+	})
 
 	router.GET("/status", func(c *gin.Context) {
 		stats, err := getStatus()
@@ -122,6 +147,13 @@ func main() {
 
 		c.JSON(http.StatusOK, processes)
 	})
+
+	fmt.Print("Running Server...\nPassword? ")
+	if serverPassword == "" {
+		fmt.Println("No")
+	} else {
+		fmt.Println("Yes")
+	}
 
 	router.Run("0.0.0.0:8080")
 }

@@ -83,6 +83,7 @@ export default function HomeScreen({ navigation }: any) {
 									name={item.name}
 									ip={item.ip}
 									port={item.port}
+									password={item.password}
 									onpress={() => navigation.navigate('Server Details', { server: item as Server })}
 								/>
 							</Swipeable>
