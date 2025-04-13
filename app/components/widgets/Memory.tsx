@@ -15,6 +15,7 @@ export default function MemoryUsageWidget({ memory, cacheAmount }: { memory: Mem
 	const [memoryStats, setMemoryStats] = useState<number[]>([]);
 	useEffect(() => {
 		setMemoryStats((prevStats) => {
+			// alert(JSON.stringify(memory.used_pct))
 			// Add the new memory percentage to the array
 			const updatedStats = [...prevStats, memory.used_pct];
 
@@ -36,7 +37,7 @@ export default function MemoryUsageWidget({ memory, cacheAmount }: { memory: Mem
 			<LineChart
 				data={{
 					labels: [], // Empty labels for a clean look
-					datasets: [{ data: memoryStats }],
+					datasets: [{ data: memoryStats.length ? memoryStats : [0] }],
 				}}
 				width={screenWidth * 0.83} // Adjust width to fit the container
 				height={200}

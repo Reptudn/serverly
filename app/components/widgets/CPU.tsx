@@ -36,7 +36,7 @@ export function CpuPercentageWidget({ percentage, cacheAmount }: { percentage: n
 				data={{
 					// labels: Array(cpuStats.length).fill(''), // Empty labels for a clean look
 					labels: [],
-					datasets: [{ data: cpuStats }],
+					datasets: [{ data: cpuStats.length ? cpuStats : [0] }],
 				}}
 				width={screenWidth * 0.83} // Adjust width to fit the container
 				height={200}
